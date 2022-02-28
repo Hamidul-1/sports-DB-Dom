@@ -21,11 +21,25 @@ const showPlayerDetails = (players) => {
             <p></p>
             <div class="all-button">
                 <button class="btn btn-danger">Delete</button>
-                <button class="btn btn-success">Details</button>
+                <button onclick="details('${player.idPlayer}')" class="btn btn-success">Details</button>
             </div>
         </div>`;
         parent.appendChild(div);
-        console.log(player);
-    }
-    
+        // console.log(player);
+    } 
+};
+const details = (id) => {
+    const url = `https://www.thesportsdb.com/api/v1/json/2/lookupplayer.php?id=${id} `;
+    fetch(url)
+        .then(response => response.json())
+        .then(data => setDetails(data.players[0]));
+};
+
+const setDetails = (info) => {
+    document.getElementById('details-container').innerHTML = `
+    <div>
+        <img src="" alt="">
+        <h1>Name:${info.strPlayer}</h1>
+    </div>
+    `;
 }
